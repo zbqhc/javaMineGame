@@ -12,6 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeSet;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.text.html.HTMLDocument.Iterator;
@@ -87,11 +88,15 @@ public class Controller {
 			System.out.println(timeFlag);
 		}
 		if (view.gr[x][y] == -1 && View.collAttr(btns[x][y], 2) == 0) {// 命中地雷
-			btns[x][y].setText("●");
-			btns[x][y].setFont(new Font("黑体", Font.PLAIN, 16));
+			btns[x][y].setIcon(new ImageIcon("src/icon/landmine.png"));
+			btns[x][y].setText("");
 			btns[x][y].setBackground(Color.RED);
 			JOptionPane.showMessageDialog(null, "祝下次好运", "扫雷失败",
 					JOptionPane.WARNING_MESSAGE);
+			view.dispose();
+			Ground ground = new Ground(view.getW(), view.getH(), view.getMines());// 创建雷场对象
+			Controller controller = new Controller();
+			new View(ground, view.getW(), view.getH(), view.getMines(),view.level, controller);
 		} else if (view.gr[x][y] == 0 && View.collAttr(btns[x][y], 2) == 0) {// 命中空白块
 			view.blankBlock(view.buttons, x, y);
 		} else if (View.collAttr(btns[x][y], 2) == 0) {// 命中数字块且未点开过
@@ -157,7 +162,8 @@ public class Controller {
 
 				} else if (e.getButton() == 3) {// 鼠标右键
 					if (View.collAttr(btn, 2) == 0) {
-						btn.setText("★");
+						//btn.setText("★");
+						btn.setIcon(new ImageIcon("src/icon/redflag.png"));
 						Date date = new Date(0);
 						System.out.println("time"+date.getTime());
 						btn.setForeground(new Color(0xff0000));
@@ -179,7 +185,8 @@ public class Controller {
 						
 						btn.setFont(new Font("黑体", Font.PLAIN, 16));// 还原字体
 					} else if (View.collAttr(btn, 2) == 1000100) {
-						btn.setText("?");
+//						btn.setText("?");
+						btn.setIcon(new ImageIcon("src/icon/mark.png"));
 						btn.setForeground(new Color(0x000000));
 						try {
 							if (view.gr[View.collAttr(btn, 0)][View.collAttr(btn, 1)]==-1){
@@ -194,11 +201,12 @@ public class Controller {
 							System.out.println("不按套路出牌");
 						}
 						View.collAttr(btn, 2, -2);
-						btn.setFont(new Font("黑体", Font.PLAIN, 16));// 还原字体
+//						btn.setFont(new Font("黑体", Font.PLAIN, 16));// 还原字体
 					} else if (View.collAttr(btn, 2) == -2) {
-						btn.setText("");
+						//btn.setText("");
+						btn.setIcon(null);
 						View.collAttr(btn, 2, 0);
-						btn.setFont(new Font("黑体", Font.PLAIN, 16));// 还原字体
+//						btn.setFont(new Font("黑体", Font.PLAIN, 16));// 还原字体
 					}
 
 				} else if (e.getButton() == 4) {

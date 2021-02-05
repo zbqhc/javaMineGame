@@ -1,0 +1,8 @@
+jms.jar 为已签名可运行的java程序
+SourceCode.jar为源码包
+
+运行环境jre 1.5及以上
+分辨率1024*768及以上
+Windows下直接运行run.bat即可，其他操作系统javaw -jar jms.jar
+请勿删除src文件夹，并保持其与jar文件处于同一目录
+请勿在压缩包内直接运行
